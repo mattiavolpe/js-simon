@@ -36,7 +36,7 @@ playButton.addEventListener("click", () => {
     numbersListContainer.remove();
     formElement.style.display = "flex";
     checkInputs(numbersToMemorize, formElement, resultElement, numbersListContainer, formElement);
-  }, 3000);
+  }, 30000);
 });
 
 // <---------- FUNCTIONS ---------->
