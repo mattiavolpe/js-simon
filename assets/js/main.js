@@ -13,35 +13,6 @@ Bonus:
 Invece di usare prompt e allerte usate inputs ed elementi della dom per mostrare a schermo il risultato.
 */
 
-// Show the numbers on the page and start a 30s timer
-// At the end the numbers have to disappear
-// The user inserts 5 numbers and I have to check how many and which ones the user remembers correctly
-
-// Create a 5 unique numbers array
-// const numbersToMemorize = [];
-// while (numbersToMemorize.length < 5) {
-//   // Numbers between 0 and 100 (both included) will be generated
-//   const singleNumberToMemorize = Math.floor(Math.random() * 101);
-//   // Check if a number is already in the array
-//   if (!numbersToMemorize.includes(singleNumberToMemorize)) {
-//     numbersToMemorize.push(singleNumberToMemorize);
-//   }
-// }
-
-// const numbersToMemorize = () => {
-//   const numbersArray = [];
-//   while (numbersArray.length < 5) {
-//     // Numbers between 0 and 100 (both included) will be generated
-//     const singleNumberToMemorize = Math.floor(Math.random() * 101);
-//     // Check if a number is already in the array
-//     if (!numbersArray.includes(singleNumberToMemorize)) {
-//       numbersArray.push(singleNumberToMemorize);
-//     }
-//   }
-//   return numbersArray;
-// }
-// console.log(numbersToMemorize());
-
 // Select the welcome message that will disappear when user starts the game
 const welcomeMessage = document.getElementById("welcome_message");
 
@@ -54,6 +25,9 @@ const numbersListContainer = document.getElementById("numbers_list");
 // Select the form that will provide the inputs to the user
 const formElement = document.getElementById("user_inputs")
 
+// Select the element that will contain the final message with the score
+const resultElement = document.getElementById("result");
+
 playButton.addEventListener("click", () => {
   const numbersToMemorize = generateNumbers();
   welcomeMessage.style.display = "none";
@@ -62,11 +36,8 @@ playButton.addEventListener("click", () => {
     numbersListContainer.remove();
     formElement.style.display = "flex";
     checkInputs(numbersToMemorize, formElement);
-  }, 30000);
+  }, 3000);
 });
-
-
-
 
 // <---------- FUNCTIONS ---------->
 
@@ -109,6 +80,25 @@ function checkInputs(generatedNumbers, form) {
       }
     }
     let score = rightNumbers.length;
-    alert(`You correctly guessed ${score} out of 5 numbers`);
+    outputScore(resultElement, score, rightNumbers);
   });
+}
+
+// Outputs the score
+function outputScore(outputElement, score, guessedNumbers) {
+  if (score != 0) {
+    outputElement.innerText = `You correctly guessed ${score} out of 5 numbers. They are:`;
+    for (let i = 0; i < guessedNumbers.length; i++) {
+      if (i != guessedNumbers.length - 1) {
+        outputElement.innerText += ` ${guessedNumbers[i]},`;
+      } else {
+        // Slice away the last coma from the second-last number
+        outputElement.innerText = outputElement.innerText.slice(0, outputElement.innerText.length-1);
+        // Insert an "and" in front of the number if it's the last one
+        outputElement.innerText += ` and ${guessedNumbers[i]}`;
+      }
+    }
+  } else {
+    outputElement.innerText = `You correctly guessed ${score} out of 5 numbers.`;
+  }
 }

@@ -4,6 +4,14 @@
   padding: 0;
 }
 
+body {
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
 .container {
   width: 94%;
   max-width: 1320px;
@@ -18,7 +26,7 @@
 }
 
 #user_inputs > label,
-#user_inputs > .buttons {
+#user_inputs > button {
   margin: 0.75rem 0 0.25rem;
 }
 
@@ -26,7 +34,8 @@
   margin-bottom: 0.75rem;
 }
 
-#user_inputs button {
+#welcome_message > button,
+#user_inputs > button {
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   border: 1px solid black;
