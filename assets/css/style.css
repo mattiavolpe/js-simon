@@ -40,6 +40,7 @@ h1 {
   border-radius: 1rem;
   border: 1px solid black;
   font-size: 1.5rem;
+  color: black;
   background-color: transparent;
   cursor: pointer;
   transition: color 0.4s, background-color 0.4s;
