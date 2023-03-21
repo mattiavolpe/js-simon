@@ -62,7 +62,7 @@ playButton.addEventListener("click", () => {
     numbersListContainer.remove();
     formElement.style.display = "flex";
     checkInputs(numbersToMemorize, formElement);
-  }, 3000);
+  }, 30000);
 });
 
 
