@@ -35,7 +35,7 @@ playButton.addEventListener("click", () => {
   setTimeout(() => {
     numbersListContainer.remove();
     formElement.style.display = "flex";
-    checkInputs(numbersToMemorize, formElement);
+    checkInputs(numbersToMemorize, formElement, resultElement, numbersListContainer, formElement);
   }, 3000);
 });
 
@@ -67,7 +67,7 @@ function appendNumbersToDOM(container, elements) {
 }
 
 // Retrieve the user inputs and check which ones and how many of them are correct
-function checkInputs(generatedNumbers, form) {
+function checkInputs(generatedNumbers, form, outputContainer, numbersToGuessList, formElement) {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     // Create an array that will container the right numbers
@@ -79,26 +79,33 @@ function checkInputs(generatedNumbers, form) {
         rightNumbers.push(Number(e.target[i].value));
       }
     }
+    // Set the score
     let score = rightNumbers.length;
-    outputScore(resultElement, score, rightNumbers);
+    // Run the function to output the score
+    outputScore(outputContainer, score, rightNumbers, numbersToGuessList, formElement);
   });
 }
 
 // Outputs the score
-function outputScore(outputElement, score, guessedNumbers) {
+function outputScore(outputContainer, score, guessedNumbers, numbersToGuessList, formElement) {
+  // Hide the form and the inputs from the DOM
+  numbersToGuessList.style.display = "none";
+  formElement.style.display = "none";
+
+  // Outputs the score based on its value
   if (score != 0) {
-    outputElement.innerText = `You correctly guessed ${score} out of 5 numbers. They are:`;
+    outputContainer.innerText = `You correctly guessed ${score} out of 5 numbers. They are:`;
     for (let i = 0; i < guessedNumbers.length; i++) {
       if (i != guessedNumbers.length - 1) {
-        outputElement.innerText += ` ${guessedNumbers[i]},`;
+        outputContainer.innerText += ` ${guessedNumbers[i]},`;
       } else {
         // Slice away the last coma from the second-last number
-        outputElement.innerText = outputElement.innerText.slice(0, outputElement.innerText.length-1);
+        outputContainer.innerText = outputContainer.innerText.slice(0, outputContainer.innerText.length-1);
         // Insert an "and" in front of the number if it's the last one
-        outputElement.innerText += ` and ${guessedNumbers[i]}`;
+        outputContainer.innerText += ` and ${guessedNumbers[i]}`;
       }
     }
   } else {
-    outputElement.innerText = `You correctly guessed ${score} out of 5 numbers.`;
+    outputContainer.innerText = `You correctly guessed ${score} out of 5 numbers.`;
   }
 }
