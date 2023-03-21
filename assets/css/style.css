@@ -13,4 +13,22 @@
 
 #user_inputs {
   display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+#user_inputs > label,
+#user_inputs > .buttons {
+  margin: 0.75rem 0 0.25rem;
+}
+
+#user_inputs > input {
+  margin-bottom: 0.75rem;
+}
+
+#user_inputs button {
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid black;
+  background-color: transparent;
 }

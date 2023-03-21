@@ -60,7 +60,9 @@ playButton.addEventListener("click", () => {
   appendNumbersToDOM(numbersListContainer, numbersToMemorize);
   setTimeout(() => {
     numbersListContainer.remove();
-  }, 30000);
+    formElement.style.display = "flex";
+    checkInputs(numbersToMemorize, formElement);
+  }, 3000);
 });
 
 
@@ -72,8 +74,8 @@ playButton.addEventListener("click", () => {
 function generateNumbers() {
   const numbersArray = [];
   while (numbersArray.length < 5) {
-    // Numbers between 0 and 100 (both included) will be generated
-    const singleNumberToMemorize = Math.floor(Math.random() * 101);
+    // Numbers between 1 and 100 (both included) will be generated
+    const singleNumberToMemorize = Math.floor(Math.random() * 100) + 1;
     // Check if a number is already in the array
     if (!numbersArray.includes(singleNumberToMemorize)) {
       numbersArray.push(singleNumberToMemorize);
@@ -91,4 +93,22 @@ function appendNumbersToDOM(container, elements) {
     currentElement.innerText = elements[i];
     container.append(currentElement);
   }
+}
+
+// Retrieve the user inputs and check which ones and how many of them are correct
+function checkInputs(generatedNumbers, form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    // Create an array that will container the right numbers
+    const rightNumbers = [];
+    // check if the inserted numbers are into the array of generated numbers
+    for (let i = 0; i < 5; i++) {
+      // Add a second condition to avoid that the user can input 5 times the same correct number and have a score of 5 / 5
+      if (generatedNumbers.includes(Number(e.target[i].value)) && !rightNumbers.includes(Number(e.target[i].value))) {
+        rightNumbers.push(Number(e.target[i].value));
+      }
+    }
+    let score = rightNumbers.length;
+    alert(`You correctly guessed ${score} out of 5 numbers`);
+  });
 }
