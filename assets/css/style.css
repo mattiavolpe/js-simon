@@ -3,3 +3,14 @@
   margin: 0;
   padding: 0;
 }
+
+.container {
+  width: 94%;
+  max-width: 1320px;
+  margin: auto;
+  text-align: center;
+}
+
+#user_inputs {
+  display: none;
+}

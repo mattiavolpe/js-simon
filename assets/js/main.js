@@ -18,13 +18,77 @@ Invece di usare prompt e allerte usate inputs ed elementi della dom per mostrare
 // The user inserts 5 numbers and I have to check how many and which ones the user remembers correctly
 
 // Create a 5 unique numbers array
-const numbersToMemorize = [];
-while (numbersToMemorize.length < 5) {
-  // Numbers between 0 and 100 (both included) will be generated
-  const singleNumberToMemorize = Math.floor(Math.random() * 101);
-  if (!numbersToMemorize.includes(singleNumberToMemorize)) {
-    numbersToMemorize.push(singleNumberToMemorize);
+// const numbersToMemorize = [];
+// while (numbersToMemorize.length < 5) {
+//   // Numbers between 0 and 100 (both included) will be generated
+//   const singleNumberToMemorize = Math.floor(Math.random() * 101);
+//   // Check if a number is already in the array
+//   if (!numbersToMemorize.includes(singleNumberToMemorize)) {
+//     numbersToMemorize.push(singleNumberToMemorize);
+//   }
+// }
+
+// const numbersToMemorize = () => {
+//   const numbersArray = [];
+//   while (numbersArray.length < 5) {
+//     // Numbers between 0 and 100 (both included) will be generated
+//     const singleNumberToMemorize = Math.floor(Math.random() * 101);
+//     // Check if a number is already in the array
+//     if (!numbersArray.includes(singleNumberToMemorize)) {
+//       numbersArray.push(singleNumberToMemorize);
+//     }
+//   }
+//   return numbersArray;
+// }
+// console.log(numbersToMemorize());
+
+// Select the welcome message that will disappear when user starts the game
+const welcomeMessage = document.getElementById("welcome_message");
+
+// Select the button to start the game
+const playButton = document.querySelector("#welcome_message > button");
+
+// Select the ul that will output the numbers to memorize
+const numbersListContainer = document.getElementById("numbers_list");
+
+// Select the form that will provide the inputs to the user
+const formElement = document.getElementById("user_inputs")
+
+playButton.addEventListener("click", () => {
+  const numbersToMemorize = generateNumbers();
+  welcomeMessage.style.display = "none";
+  appendNumbersToDOM(numbersListContainer, numbersToMemorize);
+  setTimeout(() => {
+    numbersListContainer.remove();
+  }, 30000);
+});
+
+
+
+
+// <---------- FUNCTIONS ---------->
+
+// Create a 5 unique numbers array
+function generateNumbers() {
+  const numbersArray = [];
+  while (numbersArray.length < 5) {
+    // Numbers between 0 and 100 (both included) will be generated
+    const singleNumberToMemorize = Math.floor(Math.random() * 101);
+    // Check if a number is already in the array
+    if (!numbersArray.includes(singleNumberToMemorize)) {
+      numbersArray.push(singleNumberToMemorize);
+    }
   }
+  return numbersArray;
 }
 
-console.log(numbersToMemorize);
+// Appends the random numbers to the DOM
+function appendNumbersToDOM(container, elements) {
+  // Iterate through the whole array
+  for (let i = 0; i < elements.length; i++) {
+    // Append each element to the DOM
+    const currentElement = document.createElement("li");
+    currentElement.innerText = elements[i];
+    container.append(currentElement);
+  }
+}
