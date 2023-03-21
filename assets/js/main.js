@@ -45,7 +45,6 @@ playButton.addEventListener("click", () => {
  * Generates 5 random numbers between 1 and 100, both included
  * @returns {number[]} An array of random generated numbers
  */
-// Create a 5 unique numbers array
 function generateNumbers() {
   const numbersArray = [];
   while (numbersArray.length < 5) {
@@ -64,7 +63,6 @@ function generateNumbers() {
  * @param {HTMLElement} container Container element of the DOM
  * @param {number[]} elements Array of random generated numbers 
  */
-// Appends the random numbers to the DOM
 function appendNumbersToDOM(container, elements) {
   // Iterate through the whole array
   for (let i = 0; i < elements.length; i++) {
@@ -82,7 +80,6 @@ function appendNumbersToDOM(container, elements) {
  * @param {HTMLElement} outputContainer The element of the DOM that will contain the score output. Used as a passthrough
  * @param {HTMLElement} numbersToGuessList The element of the DOM that shows the random generated numbers
  */
-// Retrieve the user inputs and check which ones and how many of them are correct
 function checkInputs(generatedNumbers, form, outputContainer, numbersToGuessList) {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -110,7 +107,6 @@ function checkInputs(generatedNumbers, form, outputContainer, numbersToGuessList
  * @param {HTMLElement} numbersToGuessList The element of the DOM that shows the random generated numbers
  * @param {HTMLElement} form The form where the user will input the numbers to guess
  */
-// Outputs the score
 function outputScore(outputContainer, score, guessedNumbers, numbersToGuessList, form) {
   // Hide the form and the inputs from the DOM
   numbersToGuessList.style.display = "none";
