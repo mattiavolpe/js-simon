@@ -20,7 +20,7 @@ const welcomeMessage = document.getElementById("welcome_message");
 const playButton = document.querySelector("#welcome_message > button");
 
 // Select the ul that will output the numbers to memorize
-const numbersListContainer = document.getElementById("numbers_list");
+const numbersListElement = document.getElementById("numbers_list");
 
 // Select the form that will provide the inputs to the user
 const formElement = document.getElementById("user_inputs")
@@ -31,16 +31,20 @@ const resultElement = document.getElementById("result");
 playButton.addEventListener("click", () => {
   const numbersToMemorize = generateNumbers();
   welcomeMessage.style.display = "none";
-  appendNumbersToDOM(numbersListContainer, numbersToMemorize);
+  appendNumbersToDOM(numbersListElement, numbersToMemorize);
   setTimeout(() => {
-    numbersListContainer.remove();
+    numbersListElement.remove();
     formElement.style.display = "flex";
-    checkInputs(numbersToMemorize, formElement, resultElement, numbersListContainer, formElement);
-  }, 30000);
+    checkInputs(numbersToMemorize, formElement, resultElement, numbersListElement);
+  }, 3000);
 });
 
 // <---------- FUNCTIONS ---------->
 
+/**
+ * Generates 5 random numbers between 1 and 100, both included
+ * @returns {number[]} An array of random generated numbers
+ */
 // Create a 5 unique numbers array
 function generateNumbers() {
   const numbersArray = [];
@@ -55,6 +59,11 @@ function generateNumbers() {
   return numbersArray;
 }
 
+/**
+ * Inserts the random generated numbers into the container element of the DOM
+ * @param {HTMLElement} container Container element of the DOM
+ * @param {number[]} elements Array of random generated numbers 
+ */
 // Appends the random numbers to the DOM
 function appendNumbersToDOM(container, elements) {
   // Iterate through the whole array
@@ -66,8 +75,15 @@ function appendNumbersToDOM(container, elements) {
   }
 }
 
+/**
+ * Checks how many and which numbers the user has correctly guessed
+ * @param {number[]} generatedNumbers Array of random generated numbers 
+ * @param {HTMLElement} form The form where the user will input the numbers to guess
+ * @param {HTMLElement} outputContainer The element of the DOM that will contain the score output. Used as a passthrough
+ * @param {HTMLElement} numbersToGuessList The element of the DOM that shows the random generated numbers
+ */
 // Retrieve the user inputs and check which ones and how many of them are correct
-function checkInputs(generatedNumbers, form, outputContainer, numbersToGuessList, formElement) {
+function checkInputs(generatedNumbers, form, outputContainer, numbersToGuessList) {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     // Create an array that will container the right numbers
@@ -82,15 +98,23 @@ function checkInputs(generatedNumbers, form, outputContainer, numbersToGuessList
     // Set the score
     let score = rightNumbers.length;
     // Run the function to output the score
-    outputScore(outputContainer, score, rightNumbers, numbersToGuessList, formElement);
+    outputScore(outputContainer, score, rightNumbers, numbersToGuessList, form);
   });
 }
 
+/**
+ * Shows in the page how many and which numbers the user correctly guessed
+ * @param {HTMLElement} outputContainer The element of the DOM that will contain the score output. Used as a passthrough
+ * @param {number} score The score given by the amount of correctly guessed numbers
+ * @param {number[]} guessedNumbers An array that contains the correctly guessed numbers
+ * @param {HTMLElement} numbersToGuessList The element of the DOM that shows the random generated numbers
+ * @param {HTMLElement} form The form where the user will input the numbers to guess
+ */
 // Outputs the score
-function outputScore(outputContainer, score, guessedNumbers, numbersToGuessList, formElement) {
+function outputScore(outputContainer, score, guessedNumbers, numbersToGuessList, form) {
   // Hide the form and the inputs from the DOM
   numbersToGuessList.style.display = "none";
-  formElement.style.display = "none";
+  form.style.display = "none";
 
   // Outputs the score based on its value
   if (score != 0) {
